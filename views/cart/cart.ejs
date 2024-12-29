@@ -2,12 +2,40 @@
 
 <%-include ('../partials/navbar.ejs') %>
 
+<section class="contianer">
+        <h1 class="display-6">My Cart</h1>
+        <div class="row">
+            <div class="col-lg-8">
+                <% for(let item of user.cart){ %>
+                    <div class="card mx-auto mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-4">
+                                <img src="<%= item.imgLink%>" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-8">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%=item.name%></h5>
+                                    <p class="card-text"><%=item.descr%></p>
+                                    <form action="" method="POST">
+                                        <button class="btn btn-danger mb-3" type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <%}%>
+            </div>
+            <div class="col-lg-3">
+                <ul class="list-group">
+                    <%for(let item of user.cart){%>
+                        <li class="list-group-item"> 
+                            <span class="fw-bold"><%=item.name%>: </span>
+                            ₹<%=item.price%>
+                        </li>
+                    <%}%>
+                    <li class="list-group-item fw-bold">Total Amount: <%=totalAmount%></li>
+                </ul>
+            </div>
+        </div>
 
-<ul>
-    <%for(let item of user.cart){%>
-
-        <li>
-            <%=item.name%> --------> <%=item.price%>
-        </li>
-    <%}%>
-</ul>
+</section>
