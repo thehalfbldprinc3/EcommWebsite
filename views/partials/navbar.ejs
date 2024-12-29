@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="/products">OffBrand</a>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <% if(currentUser && currentUser.role === 'seller'){ %>
+            <li class="nav-item">
+              <a class="nav-link" href="/product/new">New</a>
+              <!-- <%if(currentUser &&currentUser.email === "admin@appproduct.in"){%> -->
+              <!-- <%}else if(currentUser){%> -->
+              <!-- <%} else{%>
+              <%}%> -->
+            </li>
+          <%}%>
+          
+          <!-- <li>
+          </li> -->
+          <!-- <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </li> -->
+          <!-- <li class="nav-item">
+          </li> -->
+        </ul>
+        <!-- <pre><%= JSON.stringify(currentUser, null, 2) %></pre> -->
+        <div class="d-flex">
+          <%if(!currentUser){%>
+            <a href="/login" class="nav-link mx-2">Log-In</a>
+            <a class="nav-link mx-2" href="/register">Sign-Up</a>
+          <%} else if(currentUser){ %>
+            <a href="#" class="nav-link">
+              <%= currentUser.username %>
+              <i class="fa-solid fa-user"></i> 
+            </a>  
+            <a href="/user/cart" class="nav-link mx-2">
+            <i class="fa-solid fa-cart-shopping mx-2"></i>
+            <sup><span class="badge bg-danger"><%= currentUser.cart.length%></span></sup>
+            </a>
+            <a href="/logout" class="nav-link mx-2">Log-Out</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </nav>

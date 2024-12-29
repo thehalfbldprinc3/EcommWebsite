@@ -1,0 +1,40 @@
+<%layout('layouts/boilerplate')%>
+<%-include('../partials/navbar')%>
+<%-include('../partials/flash')%>
+    <div class="row">
+        <% for(let item of products){ %>
+            <div class="col-lg-4 mt-3">
+                <div class="card shadow mx-auto" style="width: 18rem;">
+                    <img src="<%= item.imgLink%>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title"><%= item.name%></h5>
+                      <span class="btn like-btn" product-id="<%=item._id%>">
+                        <%if(currentUser && currentUser.wishlist.includes(item._id)){%>
+                            <i class="fa-solid fa-heart"></i>
+                        <%}else{%>
+                            <i class="fa-regular fa-heart"></i>
+                        <%}%>
+                      </span>
+                      <h5 class="card-title"><%= item.price%></h5>
+                      <p class="card-text"><%= item.descr%></p>
+                      <a href="/product/<%= item._id%>" class="btn btn-info mb-2">View</a>
+                      <% if((currentUser && currentUser.role === 'seller') && (currentUser._id.equals(item.author))){ %>
+                      <form action="/product/<%= item._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                      </form>
+                      <% } %>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-lg-4">
+                <div>
+                    <img src="" alt="" id="prodIMG">
+                    <h3 id="prodName"><%= item.name%></h3>
+                    <h5 id="prodPrice"><%= item.price%></h5>
+                    <p id="prodDesc"><%= item.descr%></p>
+                </div>
+            </div> -->
+        <% } %>
+    </div>
+</body>
+</html>

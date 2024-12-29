@@ -1,0 +1,18 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="row">
+        <%- include('../partials/flash.ejs')%>
+        <h1 class="display-6">Log-In</h1>
+        <form action="/login" method="POST">
+            <div class="mb-3">
+                <label class="form-label" for="username">Username: </label>
+                <input class="form-control" type="text" name="username" id="username" placeholder="Enter your Username">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="password">Password: </label>
+                <input class="form-control" type="password" name="password" id="password" placeholder="Enter your Password">
+            </div>
+            <button type="submit" class="btn btn-sm btn-success">Login</button>
+            <p class="fw-light mt-2">Dont have an account? <a href="/register">Sign-Up</a></p>
+        </form>
+    </div>
