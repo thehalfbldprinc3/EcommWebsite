@@ -76,6 +76,10 @@ app.use(reviewRoutes);
 app.use(authRoutes);
 app.use(cartRoutes);
 
+app.get('/',(req,res)=>{
+    res.render('home');
+});
+
 
 passport.use(new LocalStrategy(User.authenticate()));
 
