@@ -2,7 +2,7 @@ if(process.env.NODE_ENV !== 'production'){
     require('dotenv').config();
 }
 
-const PORT= 8080;
+const PORT= process.env.PORT || 8080;
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -28,7 +28,7 @@ const cartRoutes = require('./routes/cart.js');
 const {config} = require("nodemon");
 const productAPI= require('./routes/api/productapi.js');
 
-mongoose.connect('mongodb://localhost:27017/EComDB')
+mongoose.connect(process.env.MONGO_URI)
     .then(()=>{
       console.log('MongoDB Connected!');
     }).catch(
