@@ -2,15 +2,15 @@ const express = require('express');
 const router=express.Router();//mini instance
 const Review = require('../models/Review');
 const Product = require('../models/Product');
-const {validateReview, isLoggedIn} = require("../middleware");
+const {isReviewAuth,validateReview, isLoggedIn} = require("../middleware");
 const flash = require("connect-flash");
 
 router.post('/products/:id/review',validateReview,isLoggedIn, async (req, res) => {
     try {
         const {id} = req.params;
-        const {rating, comment} = req.body;
+        const {rating, comment,} = req.body;
         const product = await Product.findById(id);
-        const review = new Review({rating, comment});
+        const review = new Review({rating, comment, author:req.user._id});
         product.reviews.push(review);
         await review.save();
         await product.save();
@@ -21,7 +21,7 @@ router.post('/products/:id/review',validateReview,isLoggedIn, async (req, res) =
     }
 });
 
-router.delete('/products/:productID/review/:reviewID', isLoggedIn, async (req,res)=>{
+router.delete('/products/:productID/review/:reviewID', isLoggedIn,isReviewAuth, async (req,res)=>{
     try {
         const {productID, reviewID} = req.params;
         await Review.findByIdAndDelete(reviewID);

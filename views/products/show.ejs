@@ -14,9 +14,14 @@
                 <% if((currentUser && currentUser.role === 'seller')&&(currentUser._id.equals(foundProduct.author))){ %>
                 <a href="/product/<%=foundProduct._id%>/edit" class="btn btn-info mb-2">Edit</a>
                 <%} %>
-                <form action="/user/<%=foundProduct._id%>/add" method="POST">
-                    <button class="btn mb-2 btn-success" type="submit">Add Product to Cart</button>
-                </form>
+                <%if(!currentUser.cart.includes(foundProduct._id)){%>
+                    <form action="/user/<%=foundProduct._id%>/add" method="POST">
+                        <button class="btn mb-2 btn-success" type="submit">Add Product to Cart</button>
+                    </form>
+                <%}else{%>
+                    <a href="/user/cart" class="btn mb-2 btn-secondary">Already in Cart</a>
+                <%}%>
+                
                 <a href="#" class="btn btn-success mb-2">Buy Product</a>
             </div>
         </div>
@@ -57,10 +62,11 @@
                                     
                     <div class="card-body">
                         <p class="card-text">Comment: <%= review.comment%></p>
-                        <form action="/products/<%= foundProduct._id %>/review/<%= review._id %>?_method=DELETE" method="POST">
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </form>
-                        
+                        <%if(currentUser._id.equals(review.author)){ %>
+                            <form action="/products/<%= foundProduct._id %>/review/<%= review._id %>?_method=DELETE" method="POST">
+                                <button class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        <%}%> 
                     </div>
                     <p>
                         <% if(review.createdAt){ %>

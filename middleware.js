@@ -1,6 +1,6 @@
 const {productSchema, reviewSchema}= require('./schema');
 const Product = require("./models/Product");
-
+const Review = require("./models/Review");
 
 const validateProduct = (req, res, next) => {
     let {name, imgLink, price, descr}=req.body;
@@ -57,5 +57,21 @@ const isProductAuth = async (req, res, next) => {
         return res.status(500).redirect('/products'); // Generic server error
     }
 };
+const isReviewAuth = async (req, res, next) => {
+    const {productID, reviewID} = req.params;
+    const currentUser= req.user;
+    const foundReview= await Review.findById(reviewID);
 
-module.exports = {validateReview, validateProduct, isLoggedIn, isSeller, isProductAuth};
+    if(!foundReview){
+        req.flash('error', 'there is no such review');
+        return res.status(403).redirect(`/product/${productID}`);
+    }
+    if(!foundReview.author.equals(req.user._id)){
+        req.flash('error', 'You are not authorized to perform this action');
+        return res.status(403).redirect(`/product/${productID}`);
+    }
+    next();
+}
+
+
+module.exports = {isReviewAuth,validateReview, validateProduct, isLoggedIn, isSeller, isProductAuth};
