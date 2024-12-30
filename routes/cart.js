@@ -21,5 +21,16 @@ router.post('/user/:productID/add', async (req, res) => {
     res.redirect('/user/cart');
 })
 //delete function
-router.delete('user/:productID/delete', async (req, res) => {})
+// router.delete('user/:productID/delete', async (req, res) => {})
+router.delete('/user/:productID/remove', isLoggedIn, async (req, res) => {
+    const { productID } = req.params;
+    const userID = req.user.id;
+
+    // Find the user and remove the product from their cart
+    const user = await User.findById(userID);
+    user.cart = user.cart.filter(product => product.toString() !== productID);
+    await user.save();
+
+    res.redirect('/user/cart');
+});
 module.exports = router;

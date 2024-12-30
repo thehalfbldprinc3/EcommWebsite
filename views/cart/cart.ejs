@@ -16,8 +16,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title"><%=item.name%></h5>
                                     <p class="card-text"><%=item.descr%></p>
-                                    <form action="" method="POST">
-                                        <button class="btn btn-danger mb-3" type="submit">Delete</button>
+                                    <form action="/user/<%= item._id %>/remove?_method=DELETE" method="POST">
+                                        <button class="btn btn-danger" type="submit">Remove from Cart</button>
                                     </form>
                                 </div>
                             </div>
