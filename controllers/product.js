@@ -80,6 +80,22 @@ const deleteProduct = async (req, res) => {
     }
 };
 
+//search product
+// const searchProduct= async (req, res)=>{
+//     try{
+//     const {query}= req.query;
+//     if(!query){
+//         req.flash('error', 'No query found.');
+//     }
+//     const products= await product.find({
+//         name:{$regex:query, $options: 'i'}
+//     });
+//     res.render('products/search', {products, query});
+//     }catch(err){
+//         res.status(500).render('error', { message: err.message });
+//     }
+// }
+
 module.exports = {
     showAllProducts,
     productForm,
@@ -87,5 +103,6 @@ module.exports = {
     showProduct,
     editForm,
     editProduct,
-    deleteProduct
+    deleteProduct,
+    // searchProduct,
 };

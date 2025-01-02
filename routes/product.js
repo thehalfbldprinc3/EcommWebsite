@@ -7,7 +7,8 @@ const {
     showProduct,
     editForm,
     editProduct,
-    deleteProduct
+    deleteProduct,
+    searchProduct,
 } = require('../controllers/product');
 const { validateProduct, isLoggedIn, isSeller, isProductAuth } = require('../middleware');
 const flash = require('connect-flash');
@@ -27,5 +28,7 @@ router.get('/product/:id/edit', isLoggedIn, isProductAuth, editForm);
 router.patch('/product/:id', validateProduct, isLoggedIn, isProductAuth, editProduct);
 //delete product
 router.delete('/product/:id', isLoggedIn, isProductAuth, deleteProduct);
+//search product
+// router.get('/products/search', isLoggedIn, searchProduct);
 
 module.exports = router;

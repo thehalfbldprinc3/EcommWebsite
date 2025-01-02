@@ -72,6 +72,4 @@ const isReviewAuth = async (req, res, next) => {
     }
     next();
 }
-
-
 module.exports = {isReviewAuth,validateReview, validateProduct, isLoggedIn, isSeller, isProductAuth};
